@@ -192,3 +192,4 @@ scraper_cache/
 
 # WandB local sync data.
 wandb/
+*.mp3
