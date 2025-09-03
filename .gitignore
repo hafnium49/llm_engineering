@@ -193,3 +193,7 @@ scraper_cache/
 # WandB local sync data.
 wandb/
 *.mp3
+
+codex_cli_workspace/
+
+*.Identifier
