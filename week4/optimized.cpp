@@ -20,8 +20,9 @@ long long max_subarray_sum(int n, unsigned long long seed, long long min_val, lo
     }
 
     long long max_sum = numeric_limits<long long>::min();
+    long long current_sum = 0;
     for (int i = 0; i < n; ++i) {
-        long long current_sum = 0;
+        current_sum = 0;
         for (int j = i; j < n; ++j) {
             current_sum += random_numbers[j];
             if (current_sum > max_sum) {
@@ -54,7 +55,7 @@ int main() {
     auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 
     cout << "Total Maximum Subarray Sum (20 runs): " << result << endl;
-    cout << "Execution Time: " << (double)duration.count() / 1000000 << " seconds" << endl;
+    cout << "Execution Time: " << (double)duration.count() / 1000000.0 << " seconds" << endl;
 
     return 0;
 }
