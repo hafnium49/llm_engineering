@@ -1,24 +1,28 @@
+
 #include <iostream>
 #include <vector>
-#include <iomanip>
-#include <cstdint>
-#include <chrono>
+#include <limits> // Required for numeric_limits
+#include <chrono> // Required for high_resolution_clock
+
+using namespace std;
 
 // Linear Congruential Generator
-uint32_t lcg(uint32_t& seed, uint32_t a = 1664525, uint32_t c = 1013904223, uint32_t m = 4294967296) {
-    seed = (a * seed + c) % m;
-    return seed;
+unsigned long long lcg(unsigned long long seed, unsigned long long a = 1664525, unsigned long long c = 1013904223, unsigned long long m = 4294967296ULL) {
+    return (a * seed + c) % m;
 }
 
-// Function to calculate the maximum subarray sum
-int64_t max_subarray_sum(int n, uint32_t seed, int min_val, int max_val) {
-    std::vector<int> random_numbers(n);
+long long max_subarray_sum(int n, unsigned long long seed, long long min_val, long long max_val) {
+    vector<long long> random_numbers(n);
+    unsigned long long current_seed = seed;
     for (int i = 0; i < n; ++i) {
-        random_numbers[i] = lcg(seed) % (max_val - min_val + 1) + min_val;
+        current_seed = lcg(current_seed);
+        random_numbers[i] = (current_seed % (max_val - min_val + 1)) + min_val;
     }
-    int64_t max_sum = INT64_MIN;
+
+    long long max_sum = numeric_limits<long long>::min();
+    long long current_sum = 0;
     for (int i = 0; i < n; ++i) {
-        int64_t current_sum = 0;
+        current_sum = 0;
         for (int j = i; j < n; ++j) {
             current_sum += random_numbers[j];
             if (current_sum > max_sum) {
@@ -29,31 +33,30 @@ int64_t max_subarray_sum(int n, uint32_t seed, int min_val, int max_val) {
     return max_sum;
 }
 
-// Function to calculate the total maximum subarray sum over 20 runs
-int64_t total_max_subarray_sum(int n, uint32_t initial_seed, int min_val, int max_val) {
-    int64_t total_sum = 0;
-    uint32_t seed = initial_seed;
+long long total_max_subarray_sum(int n, unsigned long long initial_seed, long long min_val, long long max_val) {
+    long long total_sum = 0;
+    unsigned long long current_seed = initial_seed;
     for (int i = 0; i < 20; ++i) {
-        seed = lcg(seed);
-        total_sum += max_subarray_sum(n, seed, min_val, max_val);
+        current_seed = lcg(current_seed);
+        total_sum += max_subarray_sum(n, current_seed, min_val, max_val);
     }
     return total_sum;
 }
 
 int main() {
-    int n = 10000;          // Number of random numbers
-    uint32_t initial_seed = 42; // Initial seed for the LCG
-    int min_val = -10;      // Minimum value of random numbers
-    int max_val = 10;       // Maximum value of random numbers
+    int n = 10000;
+    unsigned long long initial_seed = 42;
+    long long min_val = -10;
+    long long max_val = 10;
 
-    auto start_time = std::chrono::high_resolution_clock::now();
-    int64_t result = total_max_subarray_sum(n, initial_seed, min_val, max_val);
-    auto end_time = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
+    long long result = total_max_subarray_sum(n, initial_seed, min_val, max_val);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 
-    std::chrono::duration<double> duration = end_time - start_time;
-
-    std::cout << "Total Maximum Subarray Sum (20 runs): " << result << std::endl;
-    std::cout << "Execution Time: " << std::fixed << std::setprecision(6) << duration.count() << " seconds" << std::endl;
+    cout << "Total Maximum Subarray Sum (20 runs): " << result << endl;
+    cout << "Execution Time: " << (double)duration.count() / 1000000 << " seconds" << endl;
 
     return 0;
 }
+
