@@ -200,3 +200,5 @@ codex_cli_workspace/
 
 week5/personal-knowledge-base/
 week5/personal-knowledge-base-advanced/
+
+*.backup
