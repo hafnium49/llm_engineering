@@ -2,8 +2,8 @@ import os
 import json
 from typing import Optional, List
 from openai import OpenAI
-from agents.deals import ScrapedDeal, DealSelection
-from agents.agent import Agent
+from .deals import ScrapedDeal, DealSelection
+from .agent import Agent
 
 
 class ScannerAgent(Agent):

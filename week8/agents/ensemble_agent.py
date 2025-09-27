@@ -2,10 +2,10 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 import joblib
 
-from agents.agent import Agent
-from agents.specialist_agent import SpecialistAgent
-from agents.frontier_agent import FrontierAgent
-from agents.random_forest_agent import RandomForestAgent
+from .agent import Agent
+from .specialist_agent import SpecialistAgent
+from .frontier_agent import FrontierAgent
+from .random_forest_agent import RandomForestAgent
 
 class EnsembleAgent(Agent):
 

@@ -1,9 +1,9 @@
 from typing import Optional, List
-from agents.agent import Agent
-from agents.deals import ScrapedDeal, DealSelection, Deal, Opportunity
-from agents.scanner_agent import ScannerAgent
-from agents.ensemble_agent import EnsembleAgent
-from agents.messaging_agent import MessagingAgent
+from .agent import Agent
+from .deals import ScrapedDeal, DealSelection, Deal, Opportunity
+from .scanner_agent import ScannerAgent
+from .ensemble_agent import EnsembleAgent
+from .messaging_agent import MessagingAgent
 
 
 class PlanningAgent(Agent):

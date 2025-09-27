@@ -1,5 +1,5 @@
 import modal
-from agents.agent import Agent
+from .agent import Agent
 
 
 class SpecialistAgent(Agent):

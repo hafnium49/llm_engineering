@@ -1,9 +1,9 @@
 import os
 # from twilio.rest import Client
-from agents.deals import Opportunity
+from .deals import Opportunity
 import http.client
 import urllib
-from agents.agent import Agent
+from .agent import Agent
 
 # Uncomment the Twilio lines if you wish to use Twilio
 
